@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
@@ -5,22 +6,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="UTF-8">
-  <title>user page</title>
+  <title>휴가 목록 page</title>
 </head>
 <body>
-<h2>메인 페이지(회원 전용)</h2>
+<h2>휴가 신청 페이지 </h2>
 
-ID : <span sec:authentication="name"></span> <br>
-소유 권한 : <span sec:authentication="authorities"></span> <br>
+<form th:action="@{/vactionlist}" method="POST">
+  휴가신청일수 : <input type="number" name="dayoff"> <br>
+  휴가 시작일 : <input type="date" name="startday"> <br>
+  휴가 종료일 : <input type="date" name="endday"> <br>
+  <button>제출</button>
+</form> <br>
 
 
-남은휴가 :
 
 
 <form id="logout" th:action="@{/logout}" method="GET">
   <input type="submit" value="로그아웃"/>
 </form> <br>
 
-<a href="/vacationlist">휴가 목록 페이지로 이동 -></a>
 </body>
 </html>

@@ -5,22 +5,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="UTF-8">
-  <title>user page</title>
+  <title>휴가 목록 page</title>
 </head>
 <body>
-<h2>메인 페이지(회원 전용)</h2>
+<h2>휴가 목록 페이지 (회원 전용)</h2>
 
+<a href="/vacation/form">휴가신청하기 -></a>
+
+
+<h2></h2>
 ID : <span sec:authentication="name"></span> <br>
-소유 권한 : <span sec:authentication="authorities"></span> <br>
+<!--소유 권한 : <span sec:authentication="authorities"></span> <br>-->
 
-
-남은휴가 :
+남은 휴가: <div th:text="${user.leftVacation}"></div>
 
 
 <form id="logout" th:action="@{/logout}" method="GET">
   <input type="submit" value="로그아웃"/>
 </form> <br>
 
-<a href="/vacationlist">휴가 목록 페이지로 이동 -></a>
 </body>
 </html>

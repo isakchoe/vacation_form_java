@@ -46,6 +46,7 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.auth = auth;
+//        기본값
         this.leftVacation = 15;
     }
 
