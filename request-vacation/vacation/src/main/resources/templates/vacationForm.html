@@ -12,7 +12,7 @@
 <h2>휴가 신청 페이지 </h2>
 
 <form th:action="@{/vacationlist}" method="POST">
-  신청자 : <input type="text" th:value="${user.}"> <br>
+  신청자 : <span sec:authentication="name"></span> <br>
   휴가신청일수 : <input type="number" name="dayoff"> <br>
   휴가 시작일 : <input type="date" name="startday"> <br>
   휴가 종료일 : <input type="date" name="endday"> <br>

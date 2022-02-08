@@ -22,7 +22,8 @@ public class VacationController {
 
 //    데이터 저장
     @PostMapping("/vacationlist")
-    public String createVacation(VacationDto vacationDto){
+    public String createVacation(@AuthenticationPrincipal User user, VacationDto vacationDto){
+        vacationDto.setUser(user);
         vacationService.save(vacationDto);
         return "redirect:/vacationlist";
     }
