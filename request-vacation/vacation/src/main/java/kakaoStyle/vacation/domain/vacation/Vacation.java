@@ -28,9 +28,10 @@ public class Vacation {
     @JoinColumn(name = "user_id")
     private User user;
 
+//    private
 
     @Builder
-    Vacation( float dayoff, User user){
+    Vacation( float dayoff, User user ){
         this.dayoff = dayoff;
         this.user = user;
     }

@@ -18,6 +18,10 @@ public class VacationService {
 
     public Long save(VacationDto vacationDto){
 
+        System.out.println("sex");
+        System.out.println(vacationDto.getDayoff());
+        System.out.println(vacationDto.getUser());
+
         return vacationRepository.save(Vacation.builder()
                 .user(vacationDto.getUser())
                 .dayoff(vacationDto.getDayoff()).build()).getId();
