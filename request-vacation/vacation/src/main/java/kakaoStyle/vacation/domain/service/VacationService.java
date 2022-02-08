@@ -21,11 +21,9 @@ public class VacationService {
 
         return vacationRepository.save(Vacation.builder()
                 .user(vacationDto.getUser())
-                .dayoff(vacationDto.getDayoff()).build()).getId();
-
-//                .email(userDto.getEmail())
-//                .auth(userDto.getAuth())
-//                .password(userDto.getPassword()).build()).getCode();
+                .dayoff(vacationDto.getDayoff())
+                .startday(vacationDto.getStartday())
+                .endday(vacationDto.getEndday()).build()).getId();
 
     }
 }

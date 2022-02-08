@@ -30,7 +30,8 @@ public class UserService implements UserDetailsService {
         return userRepository.save(User.builder()
                 .email(userDto.getEmail())
                 .auth(userDto.getAuth())
-//                .leftVaction(userDto.getLeftVaction())
                 .password(userDto.getPassword()).build()).getCode();
     }
+
+
 }

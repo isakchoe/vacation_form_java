@@ -13,8 +13,10 @@ public class VacationDto {
     private User user;
     private float dayoff;
 //    dto --- html form 일치하는지 확인! 특히 대문자.
-    private String startday;
-    private String endday;
+    private java.sql.Date startday;
+    private java.sql.Date endday;
+
+    private
 
 
 //

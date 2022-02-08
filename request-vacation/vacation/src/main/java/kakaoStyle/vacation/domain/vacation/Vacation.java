@@ -23,6 +23,11 @@ public class Vacation {
     private float dayoff;
 
 //    시작일, 종료일 만들기
+    @Column(name = "start_day")
+    private java.sql.Date startday;
+
+    @Column(name = "end_day")
+    private java.sql.Date endday;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,9 +36,12 @@ public class Vacation {
 //    private
 
     @Builder
-    Vacation( float dayoff, User user ){
+    Vacation( float dayoff, User user, java.sql.Date startday, java.sql.Date endday ){
         this.dayoff = dayoff;
         this.user = user;
+        this.startday = startday;
+        this.endday = endday;
+
     }
 
 }
