@@ -3,12 +3,14 @@ package kakaoStyle.vacation.domain.web.controller;
 import kakaoStyle.vacation.domain.service.UserService;
 import kakaoStyle.vacation.domain.service.VacationService;
 import kakaoStyle.vacation.domain.user.User;
+import kakaoStyle.vacation.domain.vacation.Vacation;
 import kakaoStyle.vacation.domain.web.dto.UserDto;
 import kakaoStyle.vacation.domain.web.dto.VacationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,7 +35,7 @@ public class VacationController {
             vacationService.save(vacationDto);
 
 //        user 휴가 차감,,,, jpa update!! 참고하기
-            
+
 
 
             return "redirect:/vacationlist";
@@ -44,11 +46,20 @@ public class VacationController {
         }
     }
 
+    @DeleteMapping("/delete")
+    public String deleteVacation(Long vacationId){
+
+        vacationService.cancleVacation(vacationId);
+        return "redirect:/vacationlist";
+
+    }
+
 
     @GetMapping("/vacationlist")
     public String vacationList(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("user", user);
-//        System.out.println(user);
+        model.addAttribute("vacations", user.getVacations());
+        System.out.println(user.getVacations());
         return "vacationList";
     }
 

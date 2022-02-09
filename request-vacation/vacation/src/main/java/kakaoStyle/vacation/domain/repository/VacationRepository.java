@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface VacationRepository extends JpaRepository<Vacation, Long> {
-//    Optional<Vacation> find(String email);
+
+//    @Override
+//    Optional<Vacation> findOne(Long id);
 }
 

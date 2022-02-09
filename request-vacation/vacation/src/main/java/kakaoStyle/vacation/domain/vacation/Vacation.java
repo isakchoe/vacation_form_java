@@ -44,4 +44,8 @@ public class Vacation {
 
     }
 
+    public void cancle(float dayoff){
+        getUser().addVacation(dayoff);
+    }
+
 }

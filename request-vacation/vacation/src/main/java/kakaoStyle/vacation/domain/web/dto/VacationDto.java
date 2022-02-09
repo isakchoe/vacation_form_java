@@ -16,7 +16,6 @@ public class VacationDto {
     private java.sql.Date startday;
     private java.sql.Date endday;
 
-    private
 
 
 //

@@ -48,7 +48,22 @@ public class User implements UserDetails {
         this.auth = auth;
 //        기본값
         this.leftVacation = 15;
+        
     }
+
+    public void addVacation(float dayoff){
+        this.leftVacation += dayoff;
+    }
+
+
+    public void update(String email, String password, String auth, float leftVacation) {
+        this.email = email;
+        this.password = password;
+        this.auth = auth;
+//        기본값
+        this.leftVacation = leftVacation;
+    }
+
 
     // 필수 override 메소드들 구현
 
