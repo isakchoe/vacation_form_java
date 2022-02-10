@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class VacationController {
 
 //    데이터 저장
     @PostMapping("/vacationlist")
-    public String createVacation(@AuthenticationPrincipal User user, VacationDto vacationDto){
+    public String createVacation(@AuthenticationPrincipal Optional<User> user, VacationDto vacationDto){
 
 //        남은휴가 >= 신청휴가일경우만 승인.
         if(user.getLeftVacation() >= vacationDto.getDayoff()){
@@ -33,7 +34,9 @@ public class VacationController {
             vacationService.save(vacationDto);
 
 //        user 휴가 차감,,,, jpa update!! 참고하기
-            
+
+
+
 
 
             return "redirect:/vacationlist";
