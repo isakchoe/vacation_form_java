@@ -57,6 +57,16 @@ public class VacationController {
 
     }
 
+    @GetMapping("/vacation/{idx}")
+    public String detailVacation(@PathVariable("idx") Long vacationId, Model model){
+        Vacation vacation = vacationService.findById(vacationId);
+
+        model.addAttribute("vacation", vacation);
+
+        return "vacationIndex";
+
+    }
+
 
     @GetMapping("/vacationlist")
     public String vacationList(@AuthenticationPrincipal User user, Model model){

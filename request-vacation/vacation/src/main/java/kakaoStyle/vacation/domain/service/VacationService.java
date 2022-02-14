@@ -46,4 +46,11 @@ public class VacationService {
         List<Vacation> vacations = vacationRepository.findAllByUser(user);
         return vacations;
     }
+
+    public Vacation findById(Long vacationId){
+
+
+        Vacation vacation = vacationRepository.findById(vacationId).orElseThrow();
+        return vacation;
+    }
 }
