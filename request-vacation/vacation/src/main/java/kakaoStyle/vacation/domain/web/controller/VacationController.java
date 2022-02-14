@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,7 +34,7 @@ public class VacationController {
 
 //        남은휴가 >= 신청휴가일경우만 승인.
         if(user.getLeftVacation() >= vacationDto.getDayoff()){
-//            vacationDto.setUser(user);
+            vacationDto.setUser(user);
             vacationService.save(vacationDto);
 
 //        user 휴가 차감,,,, jpa update!! 참고하기
@@ -46,10 +48,11 @@ public class VacationController {
         }
     }
 
-    @DeleteMapping("/delete")
-    public String deleteVacation(Long vacationId){
+    @PostMapping("/delete/{idx}")
+    public String deleteVacation(@AuthenticationPrincipal User user, @PathVariable("idx") Long vacationId ){
 
         vacationService.cancleVacation(vacationId);
+//        userService.plusLeftVacation(user);
         return "redirect:/vacationlist";
 
     }
@@ -58,9 +61,9 @@ public class VacationController {
     @GetMapping("/vacationlist")
     public String vacationList(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("user", user);
-        System.out.println("sessssss");
 
-//        model.addAttribute("vacations", user.getVacations());
+        List<Vacation> vacations = vacationService.findAllVacations(user);
+        model.addAttribute("vacations", vacations);
 //        System.out.println(user.getVacations());
         return "vacationList";
     }

@@ -35,9 +35,11 @@ public class UserService implements UserDetailsService {
     }
 
     public void minusLeftvacation(User user, VacationDto vacationDto){
-
         user.minusLeftVacation(vacationDto.getDayoff());
     }
 
+    public void plusLeftVacation(User user, VacationDto vacationDto){
+        user.plusLeftVacation(vacationDto.getDayoff());
+    }
 
 }

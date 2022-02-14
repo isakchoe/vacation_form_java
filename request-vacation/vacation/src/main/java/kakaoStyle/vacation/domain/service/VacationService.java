@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //transactional 고려하기
 @RequiredArgsConstructor
 @Service
@@ -20,9 +23,6 @@ public class VacationService {
     private final VacationRepository vacationRepository;
 
     public Long save(VacationDto vacationDto){
-
-       User user = vacationDto.getUser();
-
         return vacationRepository.save(Vacation.builder()
                 .user(vacationDto.getUser())
                 .dayoff(vacationDto.getDayoff())
@@ -36,12 +36,14 @@ public class VacationService {
 
         Vacation vacation = vacationRepository.findById(vacationId).orElseThrow();
 //        user 엔티티 update,,, 휴가 취소--> 사용자 휴가 증가 로직
-        float wishDayoff = vacation.getDayoff();
-        vacation.cancle(wishDayoff);
-
 
 
 //        휴가 엔티티 delete
         vacationRepository.delete(vacation);
+    }
+
+    public List<Vacation> findAllVacations(User user){
+        List<Vacation> vacations = vacationRepository.findAllByUser(user);
+        return vacations;
     }
 }

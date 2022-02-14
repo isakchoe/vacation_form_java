@@ -20,20 +20,23 @@ ID : <span sec:authentication="name"></span> <br>
 남은 휴가: <div th:text="${user.leftVacation}"></div>
 
 
-<!--<table>-->
-<!--  <thead>-->
+<table>
+  <thead>
 
-<!--  </thead>-->
+  </thead>
 
-<!--  <tbody>-->
-<!--    <tr th:each="vacation : ${user.vacations}">-->
-<!--      <td th:text="${vacation.id}"> </td>-->
-<!--      <td th:text="${vacation.dayoff}"> </td>-->
-<!--      <td th:text="${vacation.startday}"> </td>-->
-<!--      <td th:text="${vacation.endday}"> </td>-->
-<!--    </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
+  <tbody>
+    
+      <tr th:each="vacation : ${vacations}" >
+        <td>순서</td> <td th:text="${vacation.id}"> </td>
+        <td>사용휴가</td> <td th:text="${vacation.dayoff}"> </td>
+        <td>휴가 시작일</td> <td th:text="${vacation.startday}"> </td>
+        <td>휴가 종료일</td> <td th:text="${vacation.endday}"> </td>
+        <td><a th:href="@{/vacation/{idx}(idx = ${vacation.id})}">자세히 </a></td>
+      </tr>
+       
+  </tbody>
+</table>
 
 
 <form id="logout" th:action="@{/logout}" method="GET">
