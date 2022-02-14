@@ -3,6 +3,7 @@ package kakaoStyle.vacation.domain.service;
 import kakaoStyle.vacation.domain.repository.UserRepository;
 import kakaoStyle.vacation.domain.user.User;
 import kakaoStyle.vacation.domain.web.dto.UserDto;
+import kakaoStyle.vacation.domain.web.dto.VacationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,11 @@ public class UserService implements UserDetailsService {
                 .email(userDto.getEmail())
                 .auth(userDto.getAuth())
                 .password(userDto.getPassword()).build()).getCode();
+    }
+
+    public void minusLeftvacation(User user, VacationDto vacationDto){
+
+        user.minusLeftVacation(vacationDto.getDayoff());
     }
 
 

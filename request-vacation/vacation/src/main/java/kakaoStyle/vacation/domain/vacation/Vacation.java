@@ -33,7 +33,14 @@ public class Vacation {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    private
+//    편의 메소드
+    public void setUser(User user){
+        if(this.user != null){
+            this.user.getVacations().remove(this);
+        }
+        this.user = user;
+        user.getVacations().add(this);
+    }
 
     @Builder
     Vacation( float dayoff, User user, java.sql.Date startday, java.sql.Date endday ){
@@ -41,7 +48,13 @@ public class Vacation {
         this.user = user;
         this.startday = startday;
         this.endday = endday;
+    }
 
+
+
+    public void cancle(float dayoff){
+
+        this.getUser().addLeftVacation(dayoff);
     }
 
 }

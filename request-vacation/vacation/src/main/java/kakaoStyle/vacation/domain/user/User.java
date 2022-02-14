@@ -41,6 +41,21 @@ public class User implements UserDetails {
     private List<Vacation> vacations = new ArrayList<>();
 
 
+    public void addLeftVacation (float dayoff){
+        this.leftVacation += dayoff;
+    }
+
+    public void addVacation(Vacation vacation){
+
+        this.vacations.add(vacation);
+        if (vacation.getUser()!= this){
+            vacation.setUser(this);
+        }
+    }
+
+
+
+
     @Builder
     public User(String email, String password, String auth) {
         this.email = email;
@@ -48,7 +63,20 @@ public class User implements UserDetails {
         this.auth = auth;
 //        기본값
         this.leftVacation = 15;
+        
     }
+
+
+
+
+    public void update(String email, String password, String auth, float leftVacation) {
+        this.email = email;
+        this.password = password;
+        this.auth = auth;
+//        기본값
+        this.leftVacation = leftVacation;
+    }
+
 
     // 필수 override 메소드들 구현
 
@@ -97,6 +125,15 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true; // 활성화 됨
+    }
+
+
+    public void minusLeftVacation(float dayoff){
+        this.leftVacation -= dayoff;
+    }
+
+    public void plusLeftVacation(float dayoff){
+        this.leftVacation += dayoff;
     }
 
 
