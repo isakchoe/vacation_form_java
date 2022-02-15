@@ -1,8 +1,7 @@
-package kakaoStyle.vacation.domain.user;
+package kakaoStyle.vacation.domain.entity.user;
 
 
 
-import kakaoStyle.vacation.domain.vacation.Vacation;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,25 +34,11 @@ public class User implements UserDetails {
 
     @Column()
     private float leftVacation;
-
-//    양방향 읽기 지원
-    @OneToMany(mappedBy = "user")
-    private List<Vacation> vacations = new ArrayList<>();
-
-
-    public void addLeftVacation (float dayoff){
-        this.leftVacation += dayoff;
-    }
-
-    public void addVacation(Vacation vacation){
-
-        this.vacations.add(vacation);
-        if (vacation.getUser()!= this){
-            vacation.setUser(this);
-        }
-    }
-
-
+//
+////    양방향 읽기 지원 --> 필요없다
+//    @OneToMany(mappedBy = "user")
+//    private List<Vacation> vacations = new ArrayList<>();
+//
 
 
     @Builder
@@ -67,15 +52,16 @@ public class User implements UserDetails {
     }
 
 
-
-
-    public void update(String email, String password, String auth, float leftVacation) {
-        this.email = email;
-        this.password = password;
-        this.auth = auth;
-//        기본값
-        this.leftVacation = leftVacation;
+    public void minusLeftVacation(float dayoff){
+        this.leftVacation -= dayoff;
     }
+
+    public void plusLeftVacation(float dayoff){
+        this.leftVacation += dayoff;
+    }
+
+
+
 
 
     // 필수 override 메소드들 구현
@@ -127,14 +113,6 @@ public class User implements UserDetails {
         return true; // 활성화 됨
     }
 
-
-    public void minusLeftVacation(float dayoff){
-        this.leftVacation -= dayoff;
-    }
-
-    public void plusLeftVacation(float dayoff){
-        this.leftVacation += dayoff;
-    }
 
 
 }

@@ -2,12 +2,11 @@ package kakaoStyle.vacation.domain.service;
 
 import kakaoStyle.vacation.domain.repository.UserRepository;
 import kakaoStyle.vacation.domain.repository.VacationRepository;
-import kakaoStyle.vacation.domain.user.User;
-import kakaoStyle.vacation.domain.vacation.Vacation;
+import kakaoStyle.vacation.domain.entity.user.User;
+import kakaoStyle.vacation.domain.entity.vacation.Vacation;
 import kakaoStyle.vacation.domain.web.dto.UserDto;
 import kakaoStyle.vacation.domain.web.dto.VacationDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,8 +36,8 @@ public class UserService implements UserDetailsService {
                 .password(userDto.getPassword()).build()).getCode();
     }
 
-    public void minusLeftvacation(User user, VacationDto vacationDto){
-        user.minusLeftVacation(vacationDto.getDayoff());
+    public void minusLeftvacation(User user, float dayOff){
+        user.minusLeftVacation(dayOff);
 //        저장해야 update 가능
         userRepository.save(user);
     }
