@@ -50,9 +50,9 @@ public class VacationController {
 
     @PostMapping("/delete/{idx}")
     public String deleteVacation(@AuthenticationPrincipal User user, @PathVariable("idx") Long vacationId ){
-
+//        증가하 고 삭제하 기
+        userService.plusLeftVacation(user, vacationId);
         vacationService.cancleVacation(vacationId);
-//        userService.plusLeftVacation(user);
         return "redirect:/vacationlist";
 
     }

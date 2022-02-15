@@ -1,7 +1,9 @@
 package kakaoStyle.vacation.domain.service;
 
 import kakaoStyle.vacation.domain.repository.UserRepository;
+import kakaoStyle.vacation.domain.repository.VacationRepository;
 import kakaoStyle.vacation.domain.user.User;
+import kakaoStyle.vacation.domain.vacation.Vacation;
 import kakaoStyle.vacation.domain.web.dto.UserDto;
 import kakaoStyle.vacation.domain.web.dto.VacationDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final VacationRepository vacationRepository;
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -36,10 +39,14 @@ public class UserService implements UserDetailsService {
 
     public void minusLeftvacation(User user, VacationDto vacationDto){
         user.minusLeftVacation(vacationDto.getDayoff());
+//        저장해야 update 가능
+        userRepository.save(user);
     }
 
-    public void plusLeftVacation(User user, VacationDto vacationDto){
-        user.plusLeftVacation(vacationDto.getDayoff());
+    public void plusLeftVacation(User user, Long vacationId){
+        Vacation vacation = vacationRepository.findById(vacationId).orElseThrow();
+        user.plusLeftVacation(vacation.getDayoff());
+        userRepository.save(user);
     }
 
 }
