@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
                 .password(userDto.getPassword()).build()).getCode();
     }
 
-    public void minusLeftvacation(User user, float dayOff){
+    public void minusLeftvacation(User user, double dayOff){
         user.minusLeftVacation(dayOff);
 //        저장해야 update 가능
         userRepository.save(user);

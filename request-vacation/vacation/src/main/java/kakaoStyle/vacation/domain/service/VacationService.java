@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 //transactional 고려하기
@@ -20,23 +23,16 @@ public class VacationService {
 
 
 //    저장
-    public Long save(VacationDto vacationDto){
+    public void save(VacationDto vacationDto){
 
-
-        float result = vacationDto.calculateHoliday(vacationDto.getStartday(), vacationDto.getEndday());
-
-//        반차, 반반차일 경우
-        if(vacationDto.getEndday() == vacationDto.getStartday()){
-            result = vacationDto.getDayoff();
-        }
-
-
-        return vacationRepository.save(Vacation.builder()
+         vacationRepository.save(Vacation.builder()
                 .user(vacationDto.getUser())
-                .dayoff(result)
+                .dayoff(vacationDto.getDayoff())
                 .startday(vacationDto.getStartday())
-                .endday(vacationDto.getEndday()).build()).getId();
+                .endday(vacationDto.getEndday()).build());
+
     }
+
 
 //    휴가취소
     @Transactional
@@ -44,6 +40,33 @@ public class VacationService {
         Vacation vacation = vacationRepository.findById(vacationId).orElseThrow();
 //        휴가 엔티티 delete
         vacationRepository.delete(vacation);
+    }
+
+    public boolean isPossibleDelete(Long vacationId){
+        Vacation vacation = findById(vacationId);
+
+//      포맷
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+
+
+//       휴가시작일
+        java.sql.Date startday = vacation.getStartday();
+        String fmtStartDay = fmt.format(startday);
+
+//     현재 시각
+        LocalDate now = LocalDate.now();
+        String formatNow = now.format(formatter);
+
+//        비교
+        int nowInt = Integer.parseInt(formatNow);
+        int startDayInt = Integer.parseInt(fmtStartDay);
+
+        if(startDayInt > nowInt){
+            return true;
+        }
+        return false;
+
     }
 
 

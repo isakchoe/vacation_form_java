@@ -25,40 +25,37 @@ public class VacationController {
     private final VacationService vacationService;
     private final UserService userService;
 
-//    데이터 저장
+    // 휴가 데이터 저장
     @PostMapping("/vacationlist")
     public String createVacation(@AuthenticationPrincipal User user, VacationDto vacationDto){
 
-
-//        남은휴가 >= 신청휴가일경우만 승인.
+        vacationDto.setDayoff();
+        //남은휴가 >= 신청휴가일경우만 승인.
         if(user.getLeftVacation() >= vacationDto.getDayoff()){
             vacationDto.setUser(user);
             vacationService.save(vacationDto);
 
-//            고치기,,  blank --> null true 하고. null  아니면 우선하는걸로!!
-
-//            에러 처리(사용자의 잘못된 입력)
-            if (dayOff == 0){
-                return "redirect:/vacation/form";
-            }
-
-//        user 휴가 차감,,,, jpa update!! 참고하기
-            userService.minusLeftvacation(user, dayOff);
+            // user 휴가 차감,,,,
+            userService.minusLeftvacation(user, vacationDto.getDayoff());
             return "redirect:/vacationlist";
         }
         else{
-//            alret 띄우기 알아보기
             return "redirect:/vacation/form";
         }
     }
 
     @PostMapping("/delete/{idx}")
     public String deleteVacation(@AuthenticationPrincipal User user, @PathVariable("idx") Long vacationId ){
-//        증가하 고 삭제하 기
-        userService.plusLeftVacation(user, vacationId);
-        vacationService.cancleVacation(vacationId);
-        return "redirect:/vacationlist";
 
+        boolean isPossibleDelete = vacationService.isPossibleDelete(vacationId);
+
+//       휴가 취소 가능한 경우
+        if(isPossibleDelete) {
+            //        증가하 고 삭제하 기
+            userService.plusLeftVacation(user, vacationId);
+            vacationService.cancleVacation(vacationId);
+        }
+        return "redirect:/vacationlist";
     }
 
     @GetMapping("/vacation/{idx}")

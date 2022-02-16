@@ -3,6 +3,7 @@ package kakaoStyle.vacation.domain.web.dto;
 import kakaoStyle.vacation.domain.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,14 +12,36 @@ import java.util.HashMap;
 import java.util.List;
 
 
-@Setter
 @Getter
 public class VacationDto {
-
+    @Setter
     private User user;
-    private float dayoff;
+
+    @Nullable
+    private double dayoff ;
+
+    @Setter
     private java.sql.Date startday;
+
+    @Setter
     private java.sql.Date endday;
+
+    @Setter
+    private String vacationKind;
+
+    // 휴가 신청일 계산
+    public void setDayoff(){
+
+        if(vacationKind.equals("half")){
+            this.dayoff = 0.5;
+        }
+        else if(vacationKind.equals("halfhalf")){
+            this.dayoff = 0.25;
+        }
+        else{
+            this.dayoff = calculateHoliday(startday, endday);
+        }
+    }
 
 
 

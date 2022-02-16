@@ -33,7 +33,7 @@ public class User implements UserDetails {
     private String auth; // role , 형태로 저장
 
     @Column()
-    private float leftVacation;
+    private double leftVacation;
 //
 ////    양방향 읽기 지원 --> 필요없다
 //    @OneToMany(mappedBy = "user")
@@ -52,11 +52,11 @@ public class User implements UserDetails {
     }
 
 
-    public void minusLeftVacation(float dayoff){
+    public void minusLeftVacation(double dayoff){
         this.leftVacation -= dayoff;
     }
 
-    public void plusLeftVacation(float dayoff){
+    public void plusLeftVacation(double dayoff){
         this.leftVacation += dayoff;
     }
 

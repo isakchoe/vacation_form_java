@@ -11,8 +11,14 @@
 <h2>휴가 신청 페이지 </h2>
 
 <form th:action="@{/vacationlist}" method="POST">
+  <select name="vacationKind" id="pet-select">
+    <option value="">--Please choose an option--</option>
+    <option value="halfhalf">반반차</option>
+    <option value="half">반차</option>
+    <option value="full">휴가</option>
+  </select>
+
   신청자 : <input th:value="${#authentication.name}"  readonly><br>
-  휴가신청일수 : <input type="number" name="dayoff" step="0.01"> <br>
   휴가 시작일 : <input type="date" name="startday"> <br>
   휴가 종료일 : <input type="date" name="endday"> <br>
   <button>제출</button>

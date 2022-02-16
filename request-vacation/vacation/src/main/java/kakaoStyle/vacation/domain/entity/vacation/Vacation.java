@@ -20,7 +20,7 @@ public class Vacation {
 
 
 //    휴가 신청 일시
-    private float dayoff;
+    private double dayoff;
 
 //    시작일, 종료일 만들기
     @Column(name = "start_day")
@@ -35,7 +35,7 @@ public class Vacation {
 
 
     @Builder
-    Vacation( float dayoff, User user, java.sql.Date startday, java.sql.Date endday ){
+    Vacation( double dayoff, User user, java.sql.Date startday, java.sql.Date endday ){
         this.dayoff = dayoff;
         this.user = user;
         this.startday = startday;

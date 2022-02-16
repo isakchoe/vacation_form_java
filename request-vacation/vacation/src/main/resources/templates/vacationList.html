@@ -28,7 +28,7 @@ ID : <span sec:authentication="name"></span> <br>
   <tbody>
     
       <tr th:each="vacation : ${vacations}" >
-        <td>순서</td> <td th:text="${vacation.id}"> </td>
+        <td>순서</td> <td th:text="${vacation.getId()}"> </td>
         <td>사용휴가</td> <td th:text="${vacation.dayoff}"> </td>
         <td>휴가 시작일</td> <td th:text="${vacation.startday}"> </td>
         <td>휴가 종료일</td> <td th:text="${vacation.endday}"> </td>
