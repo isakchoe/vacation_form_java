@@ -19,10 +19,10 @@ public class Vacation {
     private Long id;
 
 
-//    휴가 신청 일시
+    // 휴가 신청 일시
     private double dayoff;
 
-//    시작일, 종료일 만들기
+    // 시작일, 종료일 만들기
     @Column(name = "start_day")
     private java.sql.Date startday;
 

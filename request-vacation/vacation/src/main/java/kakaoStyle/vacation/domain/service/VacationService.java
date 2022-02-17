@@ -30,7 +30,6 @@ public class VacationService {
                 .dayoff(vacationDto.getDayoff())
                 .startday(vacationDto.getStartday())
                 .endday(vacationDto.getEndday()).build());
-
     }
 
 
@@ -66,7 +65,6 @@ public class VacationService {
             return true;
         }
         return false;
-
     }
 
 

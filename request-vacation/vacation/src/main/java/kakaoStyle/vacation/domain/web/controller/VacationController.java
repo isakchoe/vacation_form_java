@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 
@@ -27,7 +30,7 @@ public class VacationController {
 
     // 휴가 데이터 저장
     @PostMapping("/vacationlist")
-    public String createVacation(@AuthenticationPrincipal User user, VacationDto vacationDto){
+    public String createVacation(@AuthenticationPrincipal User user, VacationDto vacationDto, HttpServletResponse response) throws IOException {
 
         vacationDto.setDayoff();
         //남은휴가 >= 신청휴가일경우만 승인.
@@ -40,12 +43,18 @@ public class VacationController {
             return "redirect:/vacationlist";
         }
         else{
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+
+            out.println("<script>alert('남은휴가보다 길게 신청할 수 없습니다!') history.go(-1);</script>");
+            out.flush();
+
             return "redirect:/vacation/form";
         }
     }
 
     @PostMapping("/delete/{idx}")
-    public String deleteVacation(@AuthenticationPrincipal User user, @PathVariable("idx") Long vacationId ){
+    public String deleteVacation(@AuthenticationPrincipal User user, @PathVariable("idx") Long vacationId, HttpServletResponse response ) throws IOException {
 
         boolean isPossibleDelete = vacationService.isPossibleDelete(vacationId);
 
@@ -54,6 +63,13 @@ public class VacationController {
             //        증가하 고 삭제하 기
             userService.plusLeftVacation(user, vacationId);
             vacationService.cancleVacation(vacationId);
+        }
+        else{
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+
+            out.println("<script>alert('시작한 휴가는 취소할 수 없습니다!'); history.go(-1);</script>");
+            out.flush();
         }
         return "redirect:/vacationlist";
     }

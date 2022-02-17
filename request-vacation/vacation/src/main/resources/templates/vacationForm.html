@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 <head>
   <meta charset="UTF-8">
   <title>휴가 목록 page</title>
@@ -23,9 +22,6 @@
   휴가 종료일 : <input type="date" name="endday"> <br>
   <button>제출</button>
 </form> <br>
-
-
-
 
 <form id="logout" th:action="@{/logout}" method="GET">
   <input type="submit" value="로그아웃"/>

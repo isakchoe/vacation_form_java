@@ -5,7 +5,6 @@ import kakaoStyle.vacation.domain.repository.VacationRepository;
 import kakaoStyle.vacation.domain.entity.user.User;
 import kakaoStyle.vacation.domain.entity.vacation.Vacation;
 import kakaoStyle.vacation.domain.web.dto.UserDto;
-import kakaoStyle.vacation.domain.web.dto.VacationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

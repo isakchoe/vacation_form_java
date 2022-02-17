@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="UTF-8">
   <title>휴가 목록 page</title>
@@ -11,17 +10,12 @@
 <h2>휴가 deatail 페이지 (회원 전용)</h2>
 
 
-
-
-<h2></h2>
 ID : <span sec:authentication="name"></span> <br>
-<!--소유 권한 : <span sec:authentication="authorities"></span> <br>-->
 
-
-<div th:text="${vacation.dayoff}"></div>
-<div th:text="${vacation.startday}"></div>
-<div th:text="${vacation.endday}"></div>
-<div th:text="${vacation.user.username}"></div>
+휴가 사용: <div th:text="${vacation.dayoff}"></div>
+시작일: <div th:text="${vacation.startday}"></div>
+종료일: <div th:text="${vacation.endday}"></div>
+신청자: <div th:text="${vacation.user.username}"></div>
 
 <form th:action="@{/delete/{idx}(idx = ${vacation.id})}" method="POST">
   <input type="submit" value="삭제"/>

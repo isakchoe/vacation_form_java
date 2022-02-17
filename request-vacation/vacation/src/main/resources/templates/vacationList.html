@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="UTF-8">
   <title>휴가 목록 page</title>
@@ -15,18 +14,13 @@
 
 <h2></h2>
 ID : <span sec:authentication="name"></span> <br>
-<!--소유 권한 : <span sec:authentication="authorities"></span> <br>-->
 
 남은 휴가: <div th:text="${user.leftVacation}"></div>
 
-
 <table>
   <thead>
-
   </thead>
-
   <tbody>
-    
       <tr th:each="vacation : ${vacations}" >
         <td>순서</td> <td th:text="${vacation.getId()}"> </td>
         <td>사용휴가</td> <td th:text="${vacation.dayoff}"> </td>
@@ -34,10 +28,8 @@ ID : <span sec:authentication="name"></span> <br>
         <td>휴가 종료일</td> <td th:text="${vacation.endday}"> </td>
         <td><a th:href="@{/vacation/{idx}(idx = ${vacation.id})}">자세히 </a></td>
       </tr>
-       
   </tbody>
 </table>
-
 
 <form id="logout" th:action="@{/logout}" method="GET">
   <input type="submit" value="로그아웃"/>

@@ -34,33 +34,24 @@ public class User implements UserDetails {
 
     @Column()
     private double leftVacation;
-//
-////    양방향 읽기 지원 --> 필요없다
-//    @OneToMany(mappedBy = "user")
-//    private List<Vacation> vacations = new ArrayList<>();
-//
-
 
     @Builder
     public User(String email, String password, String auth) {
         this.email = email;
         this.password = password;
         this.auth = auth;
-//        기본값
-        this.leftVacation = 15;
-        
+        this.leftVacation = 15;  //  기본값
     }
 
-
+    // 남은휴가 차감
     public void minusLeftVacation(double dayoff){
         this.leftVacation -= dayoff;
     }
 
+    // 남은휴가 증가
     public void plusLeftVacation(double dayoff){
         this.leftVacation += dayoff;
     }
-
-
 
 
 
@@ -112,7 +103,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true; // 활성화 됨
     }
-
 
 
 }
