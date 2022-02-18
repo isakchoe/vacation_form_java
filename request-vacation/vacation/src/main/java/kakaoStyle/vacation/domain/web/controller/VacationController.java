@@ -45,10 +45,8 @@ public class VacationController {
         else{
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-
-            out.println("<script>alert('남은휴가보다 길게 신청할 수 없습니다!') history.go(-1);</script>");
+            out.println("<script>alert('남은휴가보다 길게 신청할 수 없습니다!'); history.go(-1);</script>");
             out.flush();
-
             return "redirect:/vacation/form";
         }
     }
@@ -58,16 +56,15 @@ public class VacationController {
 
         boolean isPossibleDelete = vacationService.isPossibleDelete(vacationId);
 
-//       휴가 취소 가능한 경우
+        //  휴가 취소 가능한 경우
         if(isPossibleDelete) {
-            //        증가하 고 삭제하 기
+            //  남은 휴가 증가하고    신청한 휴가 삭제하기
             userService.plusLeftVacation(user, vacationId);
             vacationService.cancleVacation(vacationId);
         }
         else{
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-
             out.println("<script>alert('시작한 휴가는 취소할 수 없습니다!'); history.go(-1);</script>");
             out.flush();
         }

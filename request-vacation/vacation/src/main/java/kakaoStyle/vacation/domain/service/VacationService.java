@@ -22,9 +22,9 @@ public class VacationService {
     private final VacationRepository vacationRepository;
 
 
-//    저장
+    // 휴가저장
+    @Transactional(rollbackFor = Exception.class)
     public void save(VacationDto vacationDto){
-
          vacationRepository.save(Vacation.builder()
                 .user(vacationDto.getUser())
                 .dayoff(vacationDto.getDayoff())
@@ -33,31 +33,31 @@ public class VacationService {
     }
 
 
-//    휴가취소
-    @Transactional
+    //   휴가취소
+    @Transactional(rollbackFor = Exception.class)
     public void cancleVacation(Long vacationId){
         Vacation vacation = vacationRepository.findById(vacationId).orElseThrow();
-//        휴가 엔티티 delete
+    //        휴가 엔티티 delete
         vacationRepository.delete(vacation);
     }
 
+    // 휴가 취소 가능한가 확인
     public boolean isPossibleDelete(Long vacationId){
         Vacation vacation = findById(vacationId);
 
-//      포맷
+        //  포맷
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 
-
-//       휴가시작일
+        //   휴가시작일
         java.sql.Date startday = vacation.getStartday();
         String fmtStartDay = fmt.format(startday);
 
-//     현재 시각
+        //  현재 시각
         LocalDate now = LocalDate.now();
         String formatNow = now.format(formatter);
 
-//        비교
+        //   비교
         int nowInt = Integer.parseInt(formatNow);
         int startDayInt = Integer.parseInt(fmtStartDay);
 
@@ -68,7 +68,7 @@ public class VacationService {
     }
 
 
-//   유저가 신청한 모든 휴가
+    //   유저가 신청한 모든 휴가
    public List<Vacation> findAllVacations(User user){
         List<Vacation> vacations = vacationRepository.findAllByUser(user);
         return vacations;
